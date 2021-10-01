@@ -16,6 +16,11 @@ node {
             [vaultKey: 'bar']]]
     ]
 
+    stage('Compile') { // Compile and do unit testing
+       // run Gradle to execute compile and unit testing
+       sh "echo DDDDDDDDDDDDDDDDDDD"
+    }
+    
     // inside this block your credentials will be available as env variables
     withVault([configuration: configuration, vaultSecrets: secrets]) {
         sh 'echo xyz'
