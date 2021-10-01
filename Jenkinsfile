@@ -26,7 +26,8 @@
                 steps {
                     withVault([configuration: configuration, vaultSecrets: secrets]) {
                         sh "echo hello"
-                        sh "echo ${env.BAR}"
+                        sh "echo ${BAR}"
+                        sh "printenv"
                     }
 
                 }
