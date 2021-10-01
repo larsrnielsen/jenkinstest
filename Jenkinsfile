@@ -18,6 +18,7 @@ node {
 
     // inside this block your credentials will be available as env variables
     withVault([configuration: configuration, vaultSecrets: secrets]) {
+        sh 'xyz'
         sh 'echo $bar'
     }
 }
