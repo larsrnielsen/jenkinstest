@@ -6,14 +6,15 @@
 //     }
 // }
 
-node {
-    stage('Source') { // Get code
-        // get code from our Git repository
-        sh 'echo source'
-    }
+node {    
     stage('Compile') { // Compile and do unit testing
        // run Gradle to execute compile and unit testing
        sh "echo compile"
+       withCredentials([[$class: 'VaultTokenCredentialBinding', credentialsId: 'jenkins', vaultAddr: 'http://localhost:8200']]) {
+        // values will be masked
+        sh 'echo TOKEN=$VAULT_TOKEN'
+        sh 'echo ADDR=$VAULT_ADDR'
+      }
     }
 }
 
