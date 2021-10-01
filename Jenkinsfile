@@ -6,7 +6,7 @@
 //     }
 // }
 
-node {    
+
     def secrets = [
         [path: 'secret/foo', engineVersion: 2, secretValues: [
             [vaultKey: 'bar', envVar: 'BAR']]]
@@ -50,7 +50,7 @@ node {
     //     sh 'printenv'
     // }
     // }
-}
+// }
 
 // node {
 //     // define the secrets and the env variables
