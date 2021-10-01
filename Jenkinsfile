@@ -25,8 +25,7 @@
             stage('Vault') {
                 steps {
                     withVault([configuration: configuration, vaultSecrets: secrets]) {
-                        sh "echo hello"
-                        sh "echo ${BAR}"
+                        sh "echo hello"                        
                         sh "printenv"
                     }
 
