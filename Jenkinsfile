@@ -19,7 +19,7 @@ node {
         sh 'echo TOKEN=$VAULT_TOKEN'
         sh 'echo ADDR=$VAULT_ADDR'
       }
-      withVault([configuration: configuration, vaultSecrets: secrets]) {
+      withVault([vaultSecrets: secrets]) {
         sh 'echo xyz'
         sh 'echo $bar'
     }
