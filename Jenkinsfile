@@ -8,29 +8,48 @@
 
 node {    
     def secrets = [
-        [path: 'secret/foo', secretValues: [
-            [vaultKey: 'bar']]]
+        [path: 'secret/foo', engineVersion: 2, secretValues: [
+            [vaultKey: 'bar', envVar: 'BAR']]]
     ]
     def configuration = [vaultUrl: 'http://localhost:8200',
                          vaultCredentialId: 'jenkins',
                          engineVersion: 2]
 
-    stage('Compile') { // Compile and do unit testing
-       // run Gradle to execute compile and unit testing
-       sh "echo compile"
-       withCredentials([[$class: 'VaultTokenCredentialBinding', credentialsId: 'jenkins', vaultAddr: 'http://localhost:8200']]) {
-        // values will be masked
-        sh 'echo TOKEN=$VAULT_TOKEN'
-        sh 'echo ADDR=$VAULT_ADDR'
-      }
+    pipeline {
+        agent any
+        options {
+            buildDiscarder(logRotator(numToKeepStr: '20'))
+            disableConcurrentBuilds()
+        }
+        stages{
+            stage('Vault') {
+                steps {
+                    withVault([configuration: configuration, vaultSecrets: secrets]) {
+                        sh "echo hello"
+                        sh "echo ${env.BAR}"
+                    }
+
+                }
+            }
+        }
+    }
+
+    // stage('Compile') { // Compile and do unit testing
+    //    // run Gradle to execute compile and unit testing
+    //    sh "echo compile"
+    //    withCredentials([[$class: 'VaultTokenCredentialBinding', credentialsId: 'jenkins', vaultAddr: 'http://localhost:8200']]) {
+    //     // values will be masked
+    //     sh 'echo TOKEN=$VAULT_TOKEN'
+    //     sh 'echo ADDR=$VAULT_ADDR'
+    //   }
       
-      withVault([configuration: configuration, vaultSecrets: secrets]) {
-        sh 'echo $bar'
-        sh 'echo $env'
-        sh 'echo $env.bar'
-        sh 'printenv'
-    }
-    }
+    //   withVault([configuration: configuration, vaultSecrets: secrets]) {
+    //     sh 'echo $bar'
+    //     sh 'echo $env'
+    //     sh 'echo $env.bar'
+    //     sh 'printenv'
+    // }
+    // }
 }
 
 // node {
