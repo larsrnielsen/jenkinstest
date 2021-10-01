@@ -14,7 +14,7 @@ node {
     def configuration = [vaultUrl: 'http://localhost:8200',
                          vaultCredentialId: 'jenkins',
                          engineVersion: 2]
-                         
+
     stage('Compile') { // Compile and do unit testing
        // run Gradle to execute compile and unit testing
        sh "echo compile"
@@ -26,7 +26,7 @@ node {
       
       withVault([configuration: configuration, vaultSecrets: secrets]) {
         sh 'echo xyz'
-        sh 'echo $bar'
+        sh 'printenv'
     }
     }
 }
