@@ -26,7 +26,7 @@ node {
       
       withVault([configuration: configuration, vaultSecrets: secrets]) {
         sh "echo $bar"
-        sh "printenv"
+        // sh "printenv"
     }
     }
 }
