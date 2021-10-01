@@ -7,6 +7,10 @@
 // }
 
 node {    
+    def secrets = [
+        [path: 'secret/foo', engineVersion: 2, secretValues: [
+            [vaultKey: 'bar']]]
+    ]
     stage('Compile') { // Compile and do unit testing
        // run Gradle to execute compile and unit testing
        sh "echo compile"
@@ -15,6 +19,10 @@ node {
         sh 'echo TOKEN=$VAULT_TOKEN'
         sh 'echo ADDR=$VAULT_ADDR'
       }
+      withVault([configuration: configuration, vaultSecrets: secrets]) {
+        sh 'echo xyz'
+        sh 'echo $bar'
+    }
     }
 }
 
