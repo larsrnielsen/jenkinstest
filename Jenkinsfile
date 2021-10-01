@@ -8,8 +8,8 @@
 
 
     def secrets = [
-        [path: 'secret/foo', engineVersion: 2, secretValues: [
-            [vaultKey: 'bar', envVar: 'BAR']]]
+        [path: 'secret/jenkins/mysecs', engineVersion: 2, secretValues: [
+            [vaultKey: 'abc', envVar: 'BAR']]]
     ]
     def configuration = [vaultUrl: 'http://localhost:8200',
                          vaultCredentialId: 'jenkins',
