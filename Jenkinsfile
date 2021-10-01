@@ -11,6 +11,10 @@ node {
         [path: 'secret/foo', engineVersion: 2, secretValues: [
             [vaultKey: 'bar']]]
     ]
+    def configuration = [vaultUrl: 'http://localhost:8200',
+                         vaultCredentialId: 'jenkins',
+                         engineVersion: 2]
+                         
     stage('Compile') { // Compile and do unit testing
        // run Gradle to execute compile and unit testing
        sh "echo compile"
@@ -19,8 +23,8 @@ node {
         sh 'echo TOKEN=$VAULT_TOKEN'
         sh 'echo ADDR=$VAULT_ADDR'
       }
-      sh "echo compil2e"
-      withVault([vaultSecrets: secrets]) {
+      
+      withVault([configuration: configuration, vaultSecrets: secrets]) {
         sh 'echo xyz'
         sh 'echo $bar'
     }
