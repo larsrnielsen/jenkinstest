@@ -8,7 +8,7 @@
 
 node {    
     def secrets = [
-        [path: 'secret/foo', engineVersion: 2, secretValues: [
+        [path: 'secret/foo', secretValues: [
             [vaultKey: 'bar']]]
     ]
     def configuration = [vaultUrl: 'http://localhost:8200',
