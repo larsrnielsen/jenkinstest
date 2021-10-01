@@ -27,6 +27,7 @@
                     withVault([configuration: configuration, vaultSecrets: secrets]) {
                         sh "echo hello"                        
                         sh "printenv"
+                        sh "echo ${env.BAR}"
                     }
 
                 }
